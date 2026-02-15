@@ -57,6 +57,19 @@ input[type="submit"]:hover{
     cursor: pointer;
 
 }
+#Address{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 100px;
+    min-width: 50px;
+    border-radius: 5px;
+
+}
+input[type="radio"]{
+    width: 100px;
+    margin: 0 auto;
+    padding: 10px;
+
+}
 
 
 
