@@ -1,0 +1,63 @@
+
+body{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 16px;
+    background-color: aqua;
+   
+    padding: 10px;
+    margin:30px ;
+    
+
+
+}
+
+h1{
+    text-align: center;
+    font-style: italic;
+    
+    color:blue;
+
+}
+form{
+    align-content: center;
+    max-width:500px ;
+    margin: 0 auto;
+    padding: 50px;
+    border-radius: 5px;
+    background-color: antiquewhite;
+
+}
+label{
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+   
+}
+input[type="text"],input[type="number"],input[type="date"],input[type="file"]
+{
+    width: 500px;
+    margin-top: 10 px;
+    border:1px ;
+    border-radius: 5px;
+    font-size: 20px;
+    border-bottom: 10px;
+    align-content: center;
+    
+    
+}
+#Name{
+    font-size: 30px;
+    padding: center;
+
+
+}
+
+input[type="submit"]:hover{
+    color: blue;
+    cursor: pointer;
+
+}
+
+
+
+
