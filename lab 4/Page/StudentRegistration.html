@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+   <link rel="stylesheet" href="/lab 4/design/Style.css" >
+   
+
+<head>
+   <h1>Student Registration Page </h1> 
+</head>
+<script src="/lab 4/JavaScript/Script.js" ></script>
+<div class ="navbar">
+   <a href="https://www.aiub.edu" >AIUB website </a>
+</div>
+<form >
+<br>
+ <label for ="Student_Name" > Student Name : </label>
+ <input type="Text" id="Student_Name" name="Full name " placeholder="Enter Your Name" onclick="return collect_data()" onchange="return collect_data()" onkeyup="return collect_data()"><br>
+  <label for ="Student_CGPA" > Student CGPA : </label>
+ <input type="Number" id="Student_CGPA" name="CGPA " placeholder="Enter Your CGPA"><br>
+ <label for ="Male" >Male</label>
+<input type ="Radio" id="male" name="Gender" value="male">
+<label for ="Female" >Female</label>
+<input type ="Radio" id="Female" name="Gender" value="Female">
+<br>
+ <label for="dept">Select your department:</label>
+    <select id="dept" name="department">
+        <option value="CSE">CSE</option>
+        <option value="EEE">EEE</option>
+        <option value="BBA">BBA</option>
+        <option value="ME">ME</option>
+    </select>
+    <br>
+
+      <label for ="Student_ID" > Student ID : </label> 
+ <input type="Text" id="Student_ID" name="ID " ><br>
+
+ <label for="Address">Address : </label> 
+<textarea rows="5" cols="10" id="Address" name="Address" placeholder="Enter your Address Here "> </textarea>
+<br>
+ <label for ="DOB" > Date of Birth : </label>
+ <input type="Date" id="DOB" name="Birth day">
+ <br>
+  <label for ="Student_Email" > Student Email : </label>
+ <input type="Text" id="Student_Email" name="email" placeholder="Enter Your email"><br>
+  <label for ="Student_report" > Upload your grade report : </label>
+  <input type="file" id="Student_report" name="report"><br>
+  <label for ="Terms" > I agree to terms and conditions  </label> 
+    <input type="checkbox"  name="value1"><br>
+    <label for ="Student_Number" > Phone Number : </label>
+    <input type="phone_Number" id="Student_Number" name="phn_number " placeholder="Enter Your Number"><br>
+     <label for ="Submit_info" > Submit your information </label>
+     <br>
+     <input type="submit" name="Submit">
+     </form>
+     </body>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

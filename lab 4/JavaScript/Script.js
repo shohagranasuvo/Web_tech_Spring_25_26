@@ -1,9 +1,10 @@
 console.log("connected!")
 //alert("connected")
-let a=0
+let a=2
 for(let i=0 ;i<10 ;i++)
 {
     console.log(i+a)
+
 }
 var name ="AIUB"
 var name 
@@ -19,3 +20,11 @@ console.log(name)
       console.log(namee)
 
      }
+     
+var b =["Shohag","Rana","Shuvo"] ;
+b.forEach((item ,index)=> {
+   
+    console.log("Index",index," item ",item) ;
+
+    
+});
