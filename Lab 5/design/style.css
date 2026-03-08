@@ -1,0 +1,40 @@
+body,label{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    font-size: medium;
+}
+#FirstName
+{
+    margin-right:95px;
+}
+#emaillabel
+{
+    margin-right:130px;
+}
+#firstnamewrong
+{
+    margin-right:50px;
+
+}
+#emailwrong
+{
+   margin-right:50px;  
+}
+
+form{
+    background-color:azure ;
+    align-content: center;
+    max-width: 500px;
+    margin:0 auto;
+    padding: 50px;
+    border-radius: 5 px;
+
+}
+#emailwrong ,#phoneWrong ,#firstnamewrong,#lasttNameWrong
+{
+    color: red;
+  
+}
+h1{
+    text-align: center;
+}
