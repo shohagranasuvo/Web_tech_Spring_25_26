@@ -1,0 +1,20 @@
+body,label{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: aqua;
+    font-size: medium;
+}
+#markwebtext{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+form{
+    background-color: bisque;
+    align-content: center;
+    max-width: 500px;
+    margin:0 auto;
+    padding: 50px;
+    border-radius: 5 px;
+
+}
+h1{
+    text-align: center;
+}
