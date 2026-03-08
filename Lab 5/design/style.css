@@ -42,9 +42,11 @@ h1{
 }
 #submit{
     background-color: green;
+    margin-left: 150px;
+    
 }
 #infotext
 {
-    width: 200px;
-    height: 100px;
+    width: 300px;
+    height: 150px;
 }
