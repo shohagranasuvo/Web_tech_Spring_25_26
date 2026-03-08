@@ -21,6 +21,7 @@ body,label{
    margin-right:50px;  
 }
 
+
 form{
     background-color:azure ;
     align-content: center;
@@ -36,5 +37,6 @@ form{
   
 }
 h1{
-    text-align: center;
+    margin-left: 50px;
+    text-align:left;
 }

@@ -11,20 +11,39 @@ function showTotalMark(){
       check=0 ;
        
     }
+    else
+    {
+         document.getElementById("firstnamewrong").innerHTML ="" ;
+
+    }
     if(Lastname=="")
     {
         document.getElementById("lasttNameWrong").innerHTML ="Last Name Empty" ;
        check = 0 ;
+    }
+    else
+    {
+        document.getElementById("lasttNameWrong").innerHTML ="" ;
     }
      if(email=="")
     {
         document.getElementById("emailwrong").innerHTML ="Email Empty" ;
         check = 0 ;
     }
+    else
+    {
+        document.getElementById("emailwrong").innerHTML ="" ;
+
+    }
     if(phone=="")
     {
          document.getElementById("phoneWrong").innerHTML ="Phone number Empty" ;
         check = 0 ;
+
+    }
+    else
+    {
+         document.getElementById("phoneWrong").innerHTML ="" ;
 
     }
     if(check==0)
@@ -33,7 +52,9 @@ function showTotalMark(){
     }
     else{
         console.log("First name" ,firstnametext);
-        console.log("Last Name" ,Lastname)
+        console.log("Last Name" ,Lastname) ;
+        console.log("Email" ,email);
+        console.log("Phone" ,phone);
     }
 
    
