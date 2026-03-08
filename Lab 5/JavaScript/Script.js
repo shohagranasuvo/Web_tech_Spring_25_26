@@ -4,6 +4,7 @@ function showTotalMark(){
     let Lastname =document.getElementById("InputLastName").value ;
      let email =document.getElementById("InputEmail").value ;
      let phone =document.getElementById("InputPhone").value ;
+     let info =document.getElementById("infotext").value ;
     let check =1 ;
     if(firstnametext=="")
     {
@@ -46,6 +47,17 @@ function showTotalMark(){
          document.getElementById("phoneWrong").innerHTML ="" ;
 
     }
+    if(info=="")
+    {
+        document.getElementById("wrongifo").innerHTML="Info empty" ;
+       check = 0 ;
+    }
+    else
+    {
+        document.getElementById("wrongifo").innerHTML="" ;
+
+    }
+
     if(check==0)
     {
         return false  ;
@@ -55,6 +67,7 @@ function showTotalMark(){
         console.log("Last Name" ,Lastname) ;
         console.log("Email" ,email);
         console.log("Phone" ,phone);
+        console.log("Message" ,info);
     }
 
    

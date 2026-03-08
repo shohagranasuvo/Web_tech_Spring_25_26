@@ -31,7 +31,7 @@ form{
     border-radius: 5 px;
 
 }
-#emailwrong ,#phoneWrong ,#firstnamewrong,#lasttNameWrong
+#emailwrong ,#phoneWrong ,#firstnamewrong,#lasttNameWrong ,#wrongifo
 {
     color: red;
   
@@ -39,4 +39,12 @@ form{
 h1{
     margin-left: 50px;
     text-align:left;
+}
+#submit{
+    background-color: green;
+}
+#infotext
+{
+    width: 200px;
+    height: 100px;
 }
