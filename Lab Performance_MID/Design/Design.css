@@ -1,0 +1,10 @@
+form{
+    background-color:azure;
+    align-content: center;
+    max-width: 250px;
+    margin: 0 auto;
+    padding: 50px;
+    border-radius: 10px;
+    border: 2px solid black;
+
+}
