@@ -1,5 +1,5 @@
 <?php
-season_start();
+//season_start();
 $datafile="../data.json" ;
 
 $name="" ;
