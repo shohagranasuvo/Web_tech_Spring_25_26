@@ -77,7 +77,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
             $result = $database->signup($connection,"user", $name, $password, $path);
             if($result)
                 {
-                    Header("Location:../View/Login.php ");
+                    Header("Location:../View/DashBoard.php ");
                 }
             }
             else{
