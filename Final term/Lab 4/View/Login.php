@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form method ='post' action ="../Controller/RegistrationValidation.php"  >
+    <form method ='post' action ="../Controller/RegistrationValidation.php"  enctype="multipart/form-data" >
         <?php
         echo "<h1 style='color:black'>PHP form validation example</h1>" ;
         echo "<h2 style='color:red'></h1>" ;
@@ -27,7 +27,7 @@
         <input type="radio" name="gender" value="female">female </td></tr>
         <tr>
             <td> File Upload </td>
-            <td><input type ="file" name="file"></td>
+            <td><input type ="file" id ="file" name="file"></td>
           </tr> <br>     
         <td>  <input type="submit" name="Submit"></td></tr>
 
