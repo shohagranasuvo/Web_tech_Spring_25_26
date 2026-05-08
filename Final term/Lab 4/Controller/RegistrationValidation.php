@@ -1,6 +1,7 @@
 <?php
 include "../Model/db.php";
 include "../View/Login.php";
+include "../View/DashBoard.php";
 session_start();
 
 $name = "";
@@ -76,8 +77,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
             $connection = $database->connection();
             $result = $database->signup($connection,"user", $name, $password, $path);
             if($result)
-                {
-                    Header("Location:../View/DashBoard.php ");
+                {   $_SESSION["UserName"] = $name; 
+                    Header("Location:../View/DashBoard.php");
+                    exit(); 
                 }
             }
             else{
