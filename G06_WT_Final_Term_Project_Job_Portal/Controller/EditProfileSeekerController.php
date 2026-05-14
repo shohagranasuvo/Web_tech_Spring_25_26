@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             }
 
-            $upload_dir = "../public/uploads/";
+            $upload_dir = "../File/";
             if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
             $file_path = $upload_dir . time() . "_" . basename($file["name"]);
             move_uploaded_file($file["tmp_name"], $file_path);

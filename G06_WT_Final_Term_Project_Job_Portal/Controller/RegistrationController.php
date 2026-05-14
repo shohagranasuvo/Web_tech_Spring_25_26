@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } elseif ($file["size"] > $max_size) {
             $fileError = "File size must be under 2MB.";
         } else {
-            $upload_dir = "../public/uploads/";
+            $upload_dir = "../File/";
             if (!is_dir($upload_dir)) {
                 mkdir($upload_dir, 0777, true);
             }
