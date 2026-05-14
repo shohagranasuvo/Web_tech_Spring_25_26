@@ -17,16 +17,71 @@ $user = $database->getUserById($connection, $user_id)->fetch_assoc();
 <head>
     <title>Edit Employer Profile</title>
     <style>
-        body { font-family: Arial; background: #f0f0f0; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .box { background: white; padding: 30px; width: 420px; border: 1px solid #ccc; }
-        h2 { color: #003399; text-align: center; }
-        label { display: block; margin-top: 12px; color: #333; }
-        input[type=text], input[type=url], input[type=password], input[type=file], textarea, select { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; border: 1px solid #aaa; }
-        textarea { height: 80px; resize: vertical; }
-        input[type=submit] { margin-top: 16px; width: 100%; padding: 10px; background: #003399; color: white; border: none; cursor: pointer; font-size: 15px; }
-        input[type=submit]:hover { background: #0044cc; }
-        .error { color: red; font-size: 13px; }
-        .success { color: green; font-size: 13px; }
+        body 
+        { 
+            font-family: Arial; 
+            background: #f0f0f0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+        }
+        .box 
+        { 
+            background: white; 
+            padding: 30px; 
+            width: 420px; 
+            border: 1px solid #ccc; 
+        }
+        h2 
+        { 
+            color: #003399; 
+            text-align: center; 
+        }
+        label 
+        { 
+            display: block; 
+            margin-top: 12px; 
+            color: #333; }
+        input[type=text], input[type=url], input[type=password], input[type=file], textarea, select 
+        { 
+            width: 100%; 
+            padding: 8px; 
+            margin-top: 4px;
+            box-sizing: border-box; 
+            border: 1px solid #aaa; 
+        }
+        textarea 
+        { 
+            height: 80px; 
+            resize: vertical; 
+        }
+        input[type=submit] 
+        { 
+            margin-top: 16px; 
+            width: 100%; 
+            padding: 10px; 
+            background: blue;
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            font-size: 15px; 
+        }
+        input[type=submit]:hover 
+        { 
+            background: #0044cc; 
+        }
+        .error 
+        { 
+            color: red; 
+            font-size: 13px; 
+        }
+        .success 
+        { 
+            color: green; 
+            font-size: 13px; 
+        }
         .section-title { color: #003399; margin-top: 20px; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
         a { color: #003399; font-size: 14px; }
     </style>
@@ -34,18 +89,21 @@ $user = $database->getUserById($connection, $user_id)->fetch_assoc();
 <body>
 <div class="box">
     <h2>Edit Employer Profile</h2>
+    <p>Welcome, <b><?php echo $_SESSION["name"]; ?></b> | 
+    Your ID: <b><?php echo $_SESSION["user_id"]; ?></b> | 
+    Role: <b><?php echo $_SESSION["role"]; ?></b></p>
 
     <?php
     $formError = $_GET['error'] ?? '';
     $success = $_GET['success'] ?? '';
-    if ($formError == "empty") echo "<p class='error'>Fields cannot be empty.</p>";
-    if ($formError == "wrongpass") echo "<p class='error'>Current password is incorrect.</p>";
-    if ($formError == "passlen") echo "<p class='error'>New password must be at least 8 characters.</p>";
-    if ($success == "1") echo "<p class='success'>Profile updated successfully!</p>";
-    if ($success == "2") echo "<p class='success'>Password changed successfully!</p>";
+    if ($formError== "empty") echo "<p class='error'>Fields cannot be empty.</p>";
+    if ($formError== "wrongpass") echo "<p class='error'>Current password is incorrect.</p>";
+    if ($formError== "passlen") echo "<p class='error'>New password must be at least 8 characters.</p>";
+    if ($success== "1") echo "<p class='success'>Profile updated successfully!</p>";
+    if ($success== "2") echo "<p class='success'>Password changed successfully!</p>";
     ?>
 
-    <form method="post" action="../Controller/EditProfileEmployerController.php" enctype="multipart/form-data">
+    <form method="post" action="" enctype="multipart/form-data" enctype="multipart/form-data">
         <p class="section-title">Company Info</p>
 
         <label>Company Name:</label>
@@ -75,7 +133,7 @@ $user = $database->getUserById($connection, $user_id)->fetch_assoc();
         <input type="submit" name="submit_profile" value="Update Profile">
     </form>
 
-    <form method="post" action="../Controller/EditProfileEmployerController.php" enctype="multipart/form-data">
+    <form method="post" action="../Controller/EditProfileEmployerController.php">
         <p class="section-title">Change Password</p>
 
         <label>Current Password:</label>

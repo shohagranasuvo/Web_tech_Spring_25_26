@@ -17,67 +17,64 @@ if ($isLoggedIn) {
 <html>
 <head>
     <title>Login - Job Portal</title>
-    <style>
-        body 
-        { 
-            font-family: Arial; 
-            /* background: white;  */
-            /* display: flex;  */
-            /* justify-content: center;  */
-            align-items: center; 
-            min-height: 400px; 
-            margin: 0; 
-            text-align: center;
-        }
-        .box 
-        { 
-            /* background: white; */
-            padding: 30px; 
-            width: 350px; 
-            border: 1px solid white; 
-        }
-        h2 
-        { 
-            color: blue; 
-            text-align: center;
-            font-weight: bold; 
-        }
-        label 
-        { 
-            display: block; 
-            margin-top: 12px; 
-            /* color: #333; */
-        }
-        input[type=email], input[type=password] 
-        { 
-            width: 100%; 
-            padding: 8px; 
-            margin-top: 4px; 
-            /* box-sizing: border-box; 
-            border: 1px solid #aaa; */
-            } 
-        input[type=submit] 
-        { 
-            /* margin-top: 16px; */
-            width: 100%; 
-            padding: 10px; 
-            background: green; 
-            color: white; 
-            border: none; 
-            cursor: pointer; 
-            font-size: 15px; }
-        input[type=submit]:hover 
-        { 
-            background: darkgreen; 
-        }
-        .error 
-        { 
-            color: red; 
-            font-size: 13px; 
-        }
-        
     
-    </style>
+    <style>
+    body 
+    { 
+        font-family: Arial; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        min-height: 100vh;
+        margin: 0;
+        background: #eaf0fb;
+    }
+    .box 
+    { 
+        padding: 30px; 
+        width: 400px; 
+        border: 1px solid #003399;
+        background: #f0f5ff;
+    }
+    h2 
+    { 
+        color: #003399; 
+        text-align: center; 
+    }
+    label 
+    { 
+        display: block; 
+        margin-top: 10px; 
+    }
+    input, textarea, select 
+    { 
+        width: 100%; 
+        padding: 7px; 
+        margin-top: 4px; 
+        box-sizing: border-box; 
+        border: 1px solid #003399; 
+    }
+    input[type=submit] 
+    { 
+        background: #003399; 
+        color: white; 
+        cursor: pointer; 
+        margin-top: 14px; 
+        font-size: 14px;
+    }
+    input[type=submit]:hover 
+    { 
+        background: #0055cc;
+    }
+    .error 
+    { 
+        color: red; font-size: 13px; 
+    }
+    .success 
+    {
+        color: green; font-size: 13px; 
+    }
+</style>
 </head>
 <body>
 <div class="box">
@@ -98,7 +95,6 @@ if ($isLoggedIn) {
 
         <input type="submit" name="submit" value="Login">
     </form>
-    <div class="link-row"><a href="Registration.php">Don't have an account? Register</a></div>
 </div>
 </body>
 </html>

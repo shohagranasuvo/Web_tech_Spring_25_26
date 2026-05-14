@@ -2,54 +2,56 @@
 include "../Model/db.php";
 session_start();
 
-$name= "";
-$email= "";
-$password= "";
-$error="";
-$nameError= "";
-$emailError= "";
-$passError= "";
-$roleError= "";
-$fileError= "";
+$name = "";
+$email = "";
+$error = "";
+$nameError = "";
+$emailError = "";
+$passError = "";
+$roleError = "";
+$fileError = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") 
-{
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $name= trim($_POST["name"] ?? "");
     $email= trim($_POST["email"] ?? "");
     $password= $_POST["password"] ?? "";
     $role= $_POST["role"] ?? "";
 
-    
+
     if (empty($role)) {
         $roleError = "Please select a role (Employer or Job Seeker).";
     }
 
-   
     if (empty($name)) {
-        $nameError = "Name is required.";
+        $nameError = "Full name is required.";
+    }
+    else if (strlen($name) < 3) {
+        $nameError = "Name must be at least 3 characters.";
+    }
+    elseif (!preg_match("/^[a-zA-Z\s]+$/", $name)) {
+        $nameError = "Name can only contain letters and spaces.";
     }
 
     if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $emailError = "Valid email is required.";
     }
 
-    
-    if (strlen($password) < 8) {
+    if (empty($password)) {
+        $passError = "Password is required.";
+    } elseif (strlen($password) < 8) {
         $passError = "Password must be at least 8 characters.";
     }
 
-    
     $file_path = "";
     if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
         $file = $_FILES["file"];
         $allowed_employer_types = ["image/jpeg", "image/png", "image/gif"];
-        $allowed_seeker_types   = ["application/pdf"];
+        $allowed_seeker_types = ["application/pdf"];
         $max_size = 2 * 1024 * 1024; // 2MB
 
-        // Validate MIME type (server-side, not just extension)
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime  = finfo_file($finfo, $file["tmp_name"]);
+        $finfo= finfo_open(FILEINFO_MIME_TYPE);
+        $mime = finfo_file($finfo, $file["tmp_name"]);
         finfo_close($finfo);
 
         if ($role == "employer" && !in_array($mime, $allowed_employer_types)) {
@@ -59,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         } elseif ($file["size"] > $max_size) {
             $fileError = "File size must be under 2MB.";
         } else {
-            $upload_dir = "../File/";
+            $upload_dir = "../public/uploads/";
             if (!is_dir($upload_dir)) {
                 mkdir($upload_dir, 0777, true);
             }
@@ -68,25 +70,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         }
     }
 
-   
     if (empty($roleError) && empty($nameError) && empty($emailError) && empty($passError) && empty($fileError)) {
 
-        $database   = new db();
-        $connection = $database->connection();
+        $database= new db();
+        $connection= $database->connection();
 
-        
-        $check = $database->checkEmail($connection, $email);
-        if ($check->num_rows > 0) 
-        {
+        $check= $database->checkEmail($connection, $email);
+        if ($check->num_rows > 0) {
             $emailError = "This email is already registered.";
-        }
-        else 
-        {
+        } else {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
             $result = $database->registerUser($connection, $name, $email, $password_hash, $role, $file_path);
 
-            if ($result)
-            {
+            if ($result) {
                 Header("Location: ../View/Login.php");
                 exit();
             } else {

@@ -2,16 +2,14 @@ function CheckEmail() {
     let email= document.getElementById("emailfield").value;
     let xhttp= new XMLHttpRequest();
 
-    xhttp.onreadystatechange = function () {
+    xhttp.onreadystatechange= function () {
         if (this.readyState == 4 && this.status == 200) {
             let response = JSON.parse(this.responseText);
             let el = document.getElementById("emailresponse");
             if (response.available) {
-                el.style.color = "green";
-                el.innerHTML = response.message;
+                el.innerHTML= response.message;
             } else {
-                el.style.color = "red";
-                el.innerHTML = response.message;
+                el.innerHTML= response.message;
             }
         }
     };

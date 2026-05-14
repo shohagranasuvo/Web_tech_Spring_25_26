@@ -17,23 +17,77 @@ $user = $database->getUserById($connection, $user_id)->fetch_assoc();
 <head>
     <title>Edit Job Seeker Profile</title>
     <style>
-        body { font-family: Arial; background: #f0f0f0; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .box { background: white; padding: 30px; width: 420px; border: 1px solid #ccc; }
-        h2 { color: #003399; text-align: center; }
-        label { display: block; margin-top: 12px; color: #333; }
-        input[type=text], input[type=number], input[type=password], input[type=file] { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; border: 1px solid #aaa; }
-        input[type=submit] { margin-top: 16px; width: 100%; padding: 10px; background: #003399; color: white; border: none; cursor: pointer; font-size: 15px; }
-        input[type=submit]:hover { background: #0044cc; }
-        .error { color: red; font-size: 13px; }
-        .success { color: green; font-size: 13px; }
-        .section-title { color: #003399; margin-top: 20px; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
-        .hint { color: gray; font-size: 12px; }
-        a { color: #003399; font-size: 14px; }
-    </style>
+    body 
+    { 
+        font-family: Arial; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        min-height: 100vh; 
+        margin: 0;
+        background: #f0f4ff;
+    }
+    .box 
+    { 
+        padding: 30px; 
+        width: 400px; 
+        border: 1px solid #1a1aff;
+        background: #f8f9ff;
+    }
+    h2 
+    { 
+        color: #1a1aff; 
+        text-align: center; 
+    }
+    label 
+    { 
+        display: block; 
+        margin-top: 10px; 
+    }
+    input, textarea, select 
+    { 
+        width: 100%; 
+        padding: 7px; 
+        margin-top: 4px; 
+        box-sizing: border-box; 
+        border: 1px solid #1a1aff; 
+    }
+    input[type=submit] 
+    { 
+        background: #1a1aff; 
+        color: white; 
+        border: none; 
+        cursor: pointer; 
+        margin-top: 14px; 
+        font-size: 14px; 
+    }
+    input[type=submit]:hover 
+    { 
+        background: #0000cc; 
+    }
+    .error 
+    { 
+        color: red; 
+        font-size: 13px; 
+    }
+    .success 
+    { 
+        color: green; 
+        font-size: 13px; 
+    }
+    a 
+    { 
+        color: #1a1aff; 
+        font-size: 14px; 
+    }
+</style>
 </head>
 <body>
 <div class="box">
     <h2>Edit Job Seeker Profile</h2>
+    <p>Welcome, <b><?php echo $_SESSION["name"]; ?></b> | 
+    Your ID: <b><?php echo $_SESSION["user_id"]; ?></b> | 
+    Role: <b><?php echo $_SESSION["role"]; ?></b></p>
 
     <?php
     $formError = $_GET['error'] ?? '';
@@ -66,7 +120,7 @@ $user = $database->getUserById($connection, $user_id)->fetch_assoc();
         <input type="submit" name="submit_profile" value="Update Profile">
     </form>
 
-    <form method="post" action="../Controller/EditProfileSeekerController.php" enctype="multipart/form-data">
+    <form method="post" action="../Controller/EditProfileSeekerController.php">
         <p class="section-title">Change Password</p>
 
         <label>Current Password:</label>

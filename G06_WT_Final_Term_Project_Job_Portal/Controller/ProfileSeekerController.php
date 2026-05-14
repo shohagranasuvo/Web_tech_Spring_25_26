@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $database= new db();
     $connection= $database->connection();
 
-    $result = $database->saveSeekerProfile($connection, $user_id, $headline, $skills, $years_experience);
+    $result= $database->saveSeekerProfile($connection, $user_id, $headline, $skills, $years_experience);
 
     if ($result) {
         Header("Location: ../View/JobBoard.php");

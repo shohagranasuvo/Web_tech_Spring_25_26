@@ -10,23 +10,84 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["role"] != "seeker") {
 <head>
     <title>Complete Seeker Profile</title>
     <style>
-        body { font-family: Arial; background: #f0f0f0; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .box { background: white; padding: 30px; width: 400px; border: 1px solid #ccc; }
-        h2 { color: #003399; text-align: center; }
-        .banner { background: #fff3cd; border: 1px solid #ffc107; padding: 10px; color: #856404; margin-bottom: 14px; text-align: center; font-size: 14px; }
-        label { display: block; margin-top: 12px; color: #333; }
-        input[type=text], input[type=number] { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; border: 1px solid #aaa; }
-        input[type=submit] { margin-top: 16px; width: 100%; padding: 10px; background: #003399; color: white; border: none; cursor: pointer; font-size: 15px; }
-        input[type=submit]:hover { background: #0044cc; }
-        .error { color: red; font-size: 13px; }
-        .success { color: green; font-size: 13px; }
-        .hint { color: gray; font-size: 12px; }
-    </style>
+    body 
+    { 
+        font-family: Arial; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        min-height: 100vh; 
+        margin: 0;
+        background: #eaf0fb;
+    }
+    .box 
+    { 
+        padding: 30px; 
+        width: 400px; 
+        border: 1px solid #003399;
+        background: #f0f5ff;
+    }
+    h2 
+    { 
+        color: #003399; 
+        text-align: center; 
+    }
+    .banner 
+    { 
+        background: yellow; 
+        border: 1px solid orange; 
+        padding: 8px; 
+        text-align: center; 
+        font-size: 14px; 
+        margin-bottom: 10px;
+    }
+    label 
+    { 
+        display: block; 
+        margin-top: 10px; 
+    }
+    input 
+    { 
+        width: 100%; 
+        padding: 7px; 
+        margin-top: 4px; 
+        box-sizing: border-box; 
+        border: 1px solid #003399; 
+    }
+    input[type=submit] 
+    { 
+        background: #003399; 
+        color: white; 
+        border: none; 
+        cursor: pointer; 
+        margin-top: 14px; 
+        font-size: 14px; 
+    }
+    input[type=submit]:hover 
+    { 
+        background: #0055cc; 
+    }
+    .error 
+    { 
+        color: red; 
+        font-size: 13px; 
+    }
+    .success 
+    { 
+        color: green; 
+        font-size: 13px; 
+    }
+    .hint 
+    { 
+        color: gray; 
+        font-size: 12px; 
+    }
+</style>
 </head>
 <body>
 <div class="box">
     <h2>Complete Your Job Seeker Profile</h2>
-    <div class="banner">Profile Incomplete — Please fill in your details.</div>
+    <div class="banner"> Profile Incomplete — Please fill in your details.</div>
 
     <?php
     $formError = $_GET['error'] ?? '';

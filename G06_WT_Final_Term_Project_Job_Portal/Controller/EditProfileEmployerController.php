@@ -28,12 +28,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $database->updateEmployerProfile($connection, $user_id, $company_name, $industry, $description, $website);
 
-        // Handle file re-upload
+    
         if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
-            $file = $_FILES["file"];
-            $allowed = ["image/jpeg", "image/png", "image/gif"];
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $mime  = finfo_file($finfo, $file["tmp_name"]);
+            $file= $_FILES["file"];
+            $allowed= ["image/jpeg", "image/png", "image/gif"];
+            $finfo= finfo_open(FILEINFO_MIME_TYPE);
+            $mime= finfo_file($finfo, $file["tmp_name"]);
             finfo_close($finfo);
 
             if (in_array($mime, $allowed) && $file["size"] <= 2 * 1024 * 1024) {
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // --- Change Password ---
+    
     if (isset($_POST["submit_password"])) {
 
         $current_password = $_POST["current_password"] ?? "";

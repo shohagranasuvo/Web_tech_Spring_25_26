@@ -14,7 +14,6 @@ class db {
         return $connection;
     }
 
-    // Check if email already exists
     function checkEmail($connection, $email) {
         $sql = "SELECT * FROM users WHERE email = ?";
         $stmt = $connection->prepare($sql);
@@ -23,7 +22,6 @@ class db {
         return $stmt->get_result();
     }
 
-    // Register new user
     function registerUser($connection, $name, $email, $password_hash, $role, $file_path) {
         $sql = "INSERT INTO users (name, email, password_hash, role, file_path) VALUES (?, ?, ?, ?, ?)";
         $stmt = $connection->prepare($sql);
@@ -31,7 +29,6 @@ class db {
         return $stmt->execute();
     }
 
-    // Get user by email for login
     function getUserByEmail($connection, $email) {
         $sql = "SELECT * FROM users WHERE email = ?";
         $stmt = $connection->prepare($sql);
@@ -40,12 +37,11 @@ class db {
         return $stmt->get_result();
     }
 
-    // Get last inserted id
     function getLastId($connection) {
         return $connection->insert_id;
     }
 
-    // Get employer profile by user_id
+   
     function getEmployerProfile($connection, $user_id) {
         $sql = "SELECT * FROM employer_profiles WHERE user_id = ?";
         $stmt = $connection->prepare($sql);
@@ -54,7 +50,7 @@ class db {
         return $stmt->get_result();
     }
 
-    // Get seeker profile by user_id
+  
     function getSeekerProfile($connection, $user_id) {
         $sql = "SELECT * FROM seeker_profiles WHERE user_id = ?";
         $stmt = $connection->prepare($sql);
@@ -63,7 +59,7 @@ class db {
         return $stmt->get_result();
     }
 
-    // Save employer profile
+ 
     function saveEmployerProfile($connection, $user_id, $company_name, $industry, $description, $website) {
         $sql = "INSERT INTO employer_profiles (user_id, company_name, industry, description, website) VALUES (?, ?, ?, ?, ?)";
         $stmt = $connection->prepare($sql);
@@ -71,7 +67,7 @@ class db {
         return $stmt->execute();
     }
 
-    // Save seeker profile
+  
     function saveSeekerProfile($connection, $user_id, $headline, $skills, $years_experience) {
         $sql = "INSERT INTO seeker_profiles (user_id, headline, skills, years_experience) VALUES (?, ?, ?, ?)";
         $stmt = $connection->prepare($sql);
@@ -79,7 +75,6 @@ class db {
         return $stmt->execute();
     }
 
-    // Update employer profile
     function updateEmployerProfile($connection, $user_id, $company_name, $industry, $description, $website) {
         $sql = "UPDATE employer_profiles SET company_name=?, industry=?, description=?, website=? WHERE user_id=?";
         $stmt = $connection->prepare($sql);
@@ -87,7 +82,7 @@ class db {
         return $stmt->execute();
     }
 
-    // Update seeker profile
+  
     function updateSeekerProfile($connection, $user_id, $headline, $skills, $years_experience) {
         $sql = "UPDATE seeker_profiles SET headline=?, skills=?, years_experience=? WHERE user_id=?";
         $stmt = $connection->prepare($sql);
@@ -95,7 +90,7 @@ class db {
         return $stmt->execute();
     }
 
-    // Update user file path
+  
     function updateFilePath($connection, $user_id, $file_path) {
         $sql = "UPDATE users SET file_path=? WHERE id=?";
         $stmt = $connection->prepare($sql);
@@ -103,7 +98,7 @@ class db {
         return $stmt->execute();
     }
 
-    // Update user password
+   
     function updatePassword($connection, $user_id, $new_hash) {
         $sql = "UPDATE users SET password_hash=? WHERE id=?";
         $stmt = $connection->prepare($sql);
@@ -111,7 +106,7 @@ class db {
         return $stmt->execute();
     }
 
-    // Get user by id
+
     function getUserById($connection, $user_id) {
         $sql = "SELECT * FROM users WHERE id = ?";
         $stmt = $connection->prepare($sql);

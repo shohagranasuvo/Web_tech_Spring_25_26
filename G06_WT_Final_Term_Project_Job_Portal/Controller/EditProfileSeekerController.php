@@ -13,10 +13,10 @@ $connection= $database->connection();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // --- Update Profile ---
+    
     if (isset($_POST["submit_profile"])) {
 
-        $headline = trim($_POST["headline"] ?? "");
+        $headline= trim($_POST["headline"] ?? "");
         $skills= trim($_POST["skills"] ?? "");
         $years_experience= intval($_POST["years_experience"] ?? 0);
 
@@ -27,11 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $database->updateSeekerProfile($connection, $user_id, $headline, $skills, $years_experience);
 
-        // Handle resume re-upload
         if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
             $file = $_FILES["file"];
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $mime  = finfo_file($finfo, $file["tmp_name"]);
+            $finfo= finfo_open(FILEINFO_MIME_TYPE);
+            $mime= finfo_file($finfo, $file["tmp_name"]);
             finfo_close($finfo);
 
             if ($mime != "application/pdf") {
@@ -54,11 +53,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // --- Change Password ---
     if (isset($_POST["submit_password"])) {
 
         $current_password = $_POST["current_password"] ?? "";
-        $new_password     = $_POST["new_password"] ?? "";
+        $new_password = $_POST["new_password"] ?? "";
 
         if (strlen($new_password) < 8) {
             Header("Location: ../View/editProfileJobSeeker.php?error=passlen");
