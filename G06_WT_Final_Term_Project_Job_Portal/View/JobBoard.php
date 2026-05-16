@@ -204,6 +204,9 @@ $jobs_result = $database->getActiveJobs($connection);
             <a href="SavedJobs.php">Saved Jobs</a>
             <a href="../Controller/MyApplicationsController.php">My Applications</a>
             <a href="editProfileJobSeeker.php">Edit Profile</a>
+            <a href="../Controller/LogoutController.php" style="color:red; font-weight:bold;">
+    Logout
+</a>
         </div>
         <div style="color: #333;">
             Welcome, <b><?php echo $_SESSION["name"]; ?></b>
