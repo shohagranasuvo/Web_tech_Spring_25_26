@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["user_id"]) || $_SESSION["role"] != "seeker") {
-    Header("Location: Login.php");
+    Header("Location: login.php");
     exit();
 }
 
@@ -19,7 +19,7 @@ if (empty($job_id)) {
 
 $user_id = $_SESSION["user_id"];
 
-// Get job details
+
 $job_result = $database->getJobById($connection, $job_id);
 
 if (!$job_result || $job_result->num_rows === 0) {
@@ -35,7 +35,7 @@ $has_applied = $database->hasApplied($connection, $user_id, $job_id);
 // Check if saved
 $is_saved = $database->isSavedJob($connection, $user_id, $job_id);
 
-// Get seeker profile for resume
+
 $seeker_result = $database->getSeekerProfile($connection, $user_id);
 $seeker = $seeker_result->fetch_assoc();
 $user = $database->getUserById($connection, $user_id)->fetch_assoc();

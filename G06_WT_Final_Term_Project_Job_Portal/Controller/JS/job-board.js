@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Debounce search requests (wait 300ms after user stops typing)
+      
         searchTimeout = setTimeout(function() {
             searchJobs(query);
         }, 300);
