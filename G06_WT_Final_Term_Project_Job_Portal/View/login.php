@@ -1,10 +1,17 @@
 <?php
 session_start();
+
 $isLoggedIn = $_SESSION["user_id"] ?? false;
+ 
 if ($isLoggedIn) {
+   
     $role = $_SESSION["role"];
+   
     if ($role == "employer") {
+       
         Header("Location:../View/EmployerDashboard.php");
+        
+        
     } elseif ($role == "seeker") {
         Header("Location:../View/JobBoard.php");
     } else {
