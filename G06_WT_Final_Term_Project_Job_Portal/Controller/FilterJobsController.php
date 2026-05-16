@@ -30,7 +30,7 @@ $result = $database->getActiveJobs($connection, $filters);
 $jobs = [];
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Check if saved
+        
         $is_saved = $database->isSavedJob($connection, $_SESSION['user_id'], $row['id']);
         
         $jobs[] = [

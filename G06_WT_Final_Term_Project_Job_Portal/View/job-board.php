@@ -2,7 +2,7 @@
 session_start();
 require_once '../config/db.php';
 
-// Redirect if not logged in as seeker
+
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'seeker') {
     header('Location: login.php');
     exit;
@@ -11,10 +11,10 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'seeker') {
 $database = new db();
 $connection = $database->connection();
 
-// Get all categories for filter dropdown
+
 $categories = $database->getAllCategories($connection);
 
-// Get initial jobs (all active jobs)
+
 $jobs_result = $database->getActiveJobs($connection);
 ?>
 
@@ -243,7 +243,7 @@ $jobs_result = $database->getActiveJobs($connection);
         </div>
         
         <div id="jobs-container" class="jobs-grid">
-            <!-- Jobs will be loaded here via AJAX -->
+       
             <?php
             if ($jobs_result && $jobs_result->num_rows > 0) {
                 while ($job = $jobs_result->fetch_assoc()) {

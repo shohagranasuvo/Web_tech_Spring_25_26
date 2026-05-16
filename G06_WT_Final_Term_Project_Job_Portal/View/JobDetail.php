@@ -404,7 +404,7 @@ $user = $database->getUserById($connection, $user_id)->fetch_assoc();
         <?php endif; ?>
     </div>
     
-    <!-- Application Form -->
+  
     <div class="application-form" id="application-form">
         <h2 class="section-title">Submit Your Application</h2>
         
@@ -505,8 +505,7 @@ $user = $database->getUserById($connection, $user_id)->fetch_assoc();
             applySection.style.display = 'block';
         });
     }
-    
-    // Resume option toggle
+
     const resumeOptions = document.querySelectorAll('input[name="resume_option"]');
     const resumeUpload = document.getElementById('resume-upload');
     

@@ -1,4 +1,4 @@
-// Job Board AJAX Functionality
+
 document.addEventListener('DOMContentLoaded', function() {
     
     const searchBox = document.getElementById('search-box');
@@ -11,13 +11,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let searchTimeout;
     
-    // Search functionality with debouncing
+   
     searchBox.addEventListener('input', function() {
         clearTimeout(searchTimeout);
         const query = this.value.trim();
         
         if (query.length === 0) {
-            // If search is cleared, reload with current filters
+       
             loadJobsWithFilters();
             return;
         }
@@ -28,13 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 300);
     });
     
-    // Filter change handlers
+
     categoryFilter.addEventListener('change', loadJobsWithFilters);
     typeFilter.addEventListener('change', loadJobsWithFilters);
     locationFilter.addEventListener('change', loadJobsWithFilters);
     salaryFilter.addEventListener('change', loadJobsWithFilters);
-    
-    // Search jobs via AJAX
+
     function searchJobs(query) {
         jobsContainer.innerHTML = '<div class="loading">Searching...</div>';
         resultsCount.textContent = 'Searching...';
@@ -55,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
     
-    // Load jobs with filters via AJAX
+
     function loadJobsWithFilters() {
         const filters = {
             category_id: categoryFilter.value,
@@ -63,8 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
             location: locationFilter.value,
             salary_range: salaryFilter.value
         };
-        
-        // Build query string
+
         const queryParams = new URLSearchParams();
         for (const [key, value] of Object.entries(filters)) {
             if (value) {
@@ -94,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
     
-    // Render jobs to the page
+
     function renderJobs(jobs) {
         if (jobs.length === 0) {
             jobsContainer.innerHTML = '<div class="no-jobs">No jobs found matching your criteria.</div>';
@@ -108,11 +106,10 @@ document.addEventListener('DOMContentLoaded', function() {
             jobsContainer.appendChild(jobCard);
         });
         
-        // Attach bookmark event listeners
+
         attachBookmarkListeners();
     }
-    
-    // Create job card element
+
     function createJobCard(job) {
         const card = document.createElement('div');
         card.className = 'job-card';
@@ -155,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return card;
     }
     
-    // Attach bookmark button event listeners
+
     function attachBookmarkListeners() {
         const bookmarkButtons = document.querySelectorAll('.bookmark-btn');
         
@@ -166,8 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    
-    // Toggle saved job via AJAX
+
     function toggleSavedJob(button) {
         const jobId = button.getAttribute('data-job-id');
         
@@ -199,17 +195,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Escape HTML to prevent XSS
+
     function escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
     
-    // Initial load - attach bookmark listeners to existing jobs
+
     attachBookmarkListeners();
     
-    // Set initial results count
+
     const initialJobCount = document.querySelectorAll('.job-card').length;
     if (initialJobCount > 0) {
         resultsCount.textContent = `Showing ${initialJobCount} job${initialJobCount !== 1 ? 's' : ''}`;

@@ -28,6 +28,7 @@ class db {
     }
 
     // ==================== JOB SEARCH & FILTERING ====================
+   
     
     function getActiveJobs($connection, $filters = []) {
         $sql = "SELECT j.*, e.company_name, c.name as category_name, u.id as employer_user_id

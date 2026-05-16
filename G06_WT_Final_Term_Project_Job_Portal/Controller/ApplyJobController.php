@@ -13,9 +13,6 @@ $conn = $db->connection();
 
 $user_id = $_SESSION["user_id"];
 
-// ======================
-// GET FORM DATA
-// ======================
 $job_id = $_POST['job_id'] ?? 0;
 $cover_letter = $_POST['cover_letter'] ?? '';
 $resume_option = $_POST['resume_option'] ?? 'upload';
@@ -26,9 +23,6 @@ if (empty($job_id) || empty($cover_letter)) {
     exit();
 }
 
-// ======================
-// CHECK IF ALREADY APPLIED
-// ======================
 if ($db->hasApplied($conn, $user_id, $job_id)) {
     echo "<script>
         alert('You have already applied for this job!');
@@ -37,21 +31,18 @@ if ($db->hasApplied($conn, $user_id, $job_id)) {
     exit();
 }
 
-// ======================
-// HANDLE RESUME FILE
-// ======================
+
 $resume_path = "";
 
-// get user profile resume
+
 $user = $db->getUserById($conn, $user_id)->fetch_assoc();
 $profile_resume = $user['file_path'] ?? '';
 
-// CASE 1: Use profile resume
+
 if ($resume_option == "profile" && !empty($profile_resume)) {
     $resume_path = $profile_resume;
 }
 
-// CASE 2: Upload new resume
 else {
 
     if (!isset($_FILES['resume']) || $_FILES['resume']['error'] != 0) {
@@ -63,7 +54,7 @@ else {
     $tmp_name = $_FILES['resume']['tmp_name'];
     $file_size = $_FILES['resume']['size'];
 
-    // validation (2MB max)
+
     if ($file_size > 2 * 1024 * 1024) {
         echo "File too large (Max 2MB)";
         exit();
@@ -76,7 +67,6 @@ else {
         exit();
     }
 
-    // create upload folder if not exists
     $upload_dir = "../uploads/resumes/";
     if (!is_dir($upload_dir)) {
         mkdir($upload_dir, 0777, true);
@@ -90,9 +80,6 @@ else {
     $resume_path = $destination;
 }
 
-// ======================
-// INSERT APPLICATION
-// ======================
 $sql = "INSERT INTO applications 
         (job_id, seeker_id, cover_letter, resume_path, status, created_at, updated_at)
         VALUES (?, ?, ?, ?, 'Submitted', NOW(), NOW())";

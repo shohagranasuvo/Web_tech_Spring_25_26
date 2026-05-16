@@ -202,7 +202,7 @@ $jobs_result = $database->getActiveJobs($connection);
         <div class="nav-links">
             <a href="JobBoard.php">Browse Jobs</a>
             <a href="SavedJobs.php">Saved Jobs</a>
-            <a href="MyApplications.php">My Applications</a>
+            <a href="../Controller/MyApplicationsController.php">My Applications</a>
             <a href="editProfileJobSeeker.php">Edit Profile</a>
         </div>
         <div style="color: #333;">

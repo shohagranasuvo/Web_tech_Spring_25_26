@@ -118,9 +118,6 @@ class db {
 
 
 
-
-    // ==================== TASK 3: JOB SEARCH & FILTERING ====================
-    
     function getActiveJobs($connection, $filters = []) {
         $sql = "SELECT j.*, e.company_name, c.name as category_name
                 FROM jobs j
@@ -146,7 +143,7 @@ class db {
         
         $stmt = $connection->prepare($sql);
         
-        // Bind parameters dynamically
+      
         $types = "";
         $params = [];
         
@@ -211,7 +208,7 @@ class db {
         return $connection->query($sql);
     }
     
-    // ==================== SAVED JOBS ====================
+
     
     function isSavedJob($connection, $user_id, $job_id) {
         $sql = "SELECT id FROM saved_jobs WHERE user_id = ? AND job_id = ?";
@@ -223,7 +220,7 @@ class db {
     }
     
     function toggleSavedJob($connection, $user_id, $job_id) {
-        // Check if already saved
+
         $check_sql = "SELECT id FROM saved_jobs WHERE user_id = ? AND job_id = ?";
         $check_stmt = $connection->prepare($check_sql);
         $check_stmt->bind_param("ii", $user_id, $job_id);
@@ -231,14 +228,14 @@ class db {
         $check_result = $check_stmt->get_result();
         
         if ($check_result->num_rows > 0) {
-            // Remove from saved jobs
+            
             $delete_sql = "DELETE FROM saved_jobs WHERE user_id = ? AND job_id = ?";
             $delete_stmt = $connection->prepare($delete_sql);
             $delete_stmt->bind_param("ii", $user_id, $job_id);
             $delete_stmt->execute();
             return 'removed';
         } else {
-            // Add to saved jobs
+          
             $insert_sql = "INSERT INTO saved_jobs (user_id, job_id, created_at) VALUES (?, ?, NOW())";
             $insert_stmt = $connection->prepare($insert_sql);
             $insert_stmt->bind_param("ii", $user_id, $job_id);
@@ -269,7 +266,7 @@ class db {
         return $stmt->execute();
     }
     
-    // ==================== APPLICATIONS ====================
+   
     
     function hasApplied($connection, $seeker_id, $job_id) {
         $sql = "SELECT id FROM applications WHERE seeker_id = ? AND job_id = ?";
@@ -320,7 +317,5 @@ class db {
     }
 }
 
-// ========================================
-// END OF METHODS TO ADD
-// ========================================
+
 ?>
