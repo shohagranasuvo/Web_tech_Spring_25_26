@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $role = $row["role"];
 
-            // Check if profile is complete and redirect
+            
             if ($role == "employer") {
                 $profile = $database->getEmployerProfile($connection, $row["id"]);
                 if ($profile->num_rows == 0) {

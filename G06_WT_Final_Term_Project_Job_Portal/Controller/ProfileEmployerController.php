@@ -2,12 +2,14 @@
 include "../Model/db.php";
 session_start();
 
-if (!isset($_SESSION["user_id"]) || $_SESSION["role"] != "employer") {
+if (!isset($_SESSION["user_id"]) || $_SESSION["role"] != "employer") 
+{
     Header("Location: ../View/Login.php");
     exit();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
 
     $company_name= trim($_POST["company_name"] ?? "");
     $industry= trim($_POST["industry"] ?? "");
@@ -15,7 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $website= trim($_POST["website"] ?? "");
     $user_id= $_SESSION["user_id"];
 
-    if (empty($company_name) || empty($industry) || empty($description)) {
+    if (empty($company_name) || empty($industry) || empty($description)) 
+    {
         Header("Location: ../View/profilecompletionEmployee.php?error=empty");
         exit();
     }
@@ -25,9 +28,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $result = $database->saveEmployerProfile($connection, $user_id, $company_name, $industry, $description, $website);
 
-    if ($result) {
+    if ($result) 
+    {
         Header("Location: ../View/EmployerDashboard.php");
-    } else {
+    } 
+    else 
+    {
         Header("Location: ../View/profilecompletionEmployee.php?error=failed");
     }
     exit();

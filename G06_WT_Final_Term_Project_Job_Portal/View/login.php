@@ -1,17 +1,10 @@
 <?php
 session_start();
-
 $isLoggedIn = $_SESSION["user_id"] ?? false;
- 
 if ($isLoggedIn) {
-   
     $role = $_SESSION["role"];
-   
     if ($role == "employer") {
-       
         Header("Location:../View/EmployerDashboard.php");
-        
-        
     } elseif ($role == "seeker") {
         Header("Location:../View/JobBoard.php");
     } else {
@@ -81,6 +74,12 @@ if ($isLoggedIn) {
     {
         color: green; font-size: 13px; 
     }
+    .link-row 
+    {
+        margin-top: 12px; 
+        text-align: center;
+        color: #003399;
+    }
 </style>
 </head>
 <body>
@@ -102,6 +101,8 @@ if ($isLoggedIn) {
 
         <input type="submit" name="submit" value="Login">
     </form>
+    <div class = "link-row "><a href="Registration.php">Don't have an account? Register here</a>
+    </div>
 </div>
 </body>
 </html>
