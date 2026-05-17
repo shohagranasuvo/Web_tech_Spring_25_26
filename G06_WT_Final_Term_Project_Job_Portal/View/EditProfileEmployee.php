@@ -103,7 +103,7 @@ $user = $database->getUserById($connection, $user_id)->fetch_assoc();
     if ($success== "2") echo "<p class='success'>Password changed successfully!</p>";
     ?>
 
-    <form method="post" action="" enctype="multipart/form-data" enctype="multipart/form-data">
+    <form method="post" action="../Controller/EditProfileEmployerController.php" enctype="multipart/form-data">
         <p class="section-title">Company Info</p>
 
         <label>Company Name:</label>

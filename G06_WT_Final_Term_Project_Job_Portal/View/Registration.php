@@ -83,6 +83,12 @@ include "../Controller/RegistrationController.php";
     #emailresponse 
     { 
         font-size: 13px; 
+        color: #a1f09f;
+    }
+    .link-row 
+    {
+        margin-top: 12px; 
+        text-align: center;
     }
     
 </style>
@@ -122,6 +128,7 @@ include "../Controller/RegistrationController.php";
 
         <input type="submit" name="submit" value="Register">
     </form>
+    <div class="link-row"><a href="Login.php">Already have an account? Login</a></div>
 
 </div>
 </body>

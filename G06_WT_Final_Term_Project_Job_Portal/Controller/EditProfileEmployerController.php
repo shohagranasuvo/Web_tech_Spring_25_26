@@ -13,7 +13,7 @@ $connection= $database->connection();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // --- Update Profile ---
+    
     if (isset($_POST["submit_profile"])) {
 
         $company_name= trim($_POST["company_name"] ?? "");
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             finfo_close($finfo);
 
             if (in_array($mime, $allowed) && $file["size"] <= 2 * 1024 * 1024) {
-                $upload_dir = "../File/";
+                $upload_dir = "../public/uploads/";
                 if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
                 $file_path = $upload_dir . time() . "_" . basename($file["name"]);
                 move_uploaded_file($file["tmp_name"], $file_path);

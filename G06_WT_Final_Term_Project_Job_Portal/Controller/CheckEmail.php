@@ -4,7 +4,8 @@ include "../Model/db.php";
 
 $email= trim($_POST["email"] ?? "");
 
-if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) 
+{
     echo json_encode(["available" => false, "message" => "Enter a valid email."]);
     exit();
 }
@@ -14,9 +15,12 @@ $connection= $database->connection();
 
 $result= $database->checkEmail($connection, $email);
 
-if ($result->num_rows > 0) {
+if ($result->num_rows > 0) 
+{
     echo json_encode(["available" => false, "message" => "Email already registered."]);
-} else {
+} 
+else 
+{
     echo json_encode(["available" => true, "message" => "Email is available."]);
 }
 ?>

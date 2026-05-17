@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $file = $_FILES["file"];
         $allowed_employer_types = ["image/jpeg", "image/png", "image/gif"];
         $allowed_seeker_types = ["application/pdf"];
-        $max_size = 2 * 1024 * 1024; // 2MB
+        $max_size = 2 * 1024 * 1024; 
 
         $finfo= finfo_open(FILEINFO_MIME_TYPE);
         $mime = finfo_file($finfo, $file["tmp_name"]);
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } elseif ($file["size"] > $max_size) {
             $fileError = "File size must be under 2MB.";
         } else {
-            $upload_dir = "../File/";
+            $upload_dir = "../public/uploads/";
             if (!is_dir($upload_dir)) {
                 mkdir($upload_dir, 0777, true);
             }
