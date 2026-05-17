@@ -11,10 +11,8 @@ $connection = $database->connection();
 
 $user_id = $_SESSION["user_id"];
 
-// Get all categories for filter dropdown
 $categories = $database->getAllCategories($connection);
 
-// Get initial jobs (all active jobs)
 $jobs_result = $database->getActiveJobs($connection);
 ?>
 <!DOCTYPE html>
