@@ -11,7 +11,7 @@ include "../Model/db.php";
 $database = new db();
 $connection = $database->connection();
 
-// Get search query
+
 $query = isset($_GET['q']) ? trim($_GET['q']) : '';
 
 if (empty($query)) {
@@ -19,13 +19,13 @@ if (empty($query)) {
     exit();
 }
 
-// Search jobs
+
 $result = $database->searchJobs($connection, $query);
 
 $jobs = [];
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Check if saved
+       
         $is_saved = $database->isSavedJob($connection, $_SESSION['user_id'], $row['id']);
         
         $jobs[] = [

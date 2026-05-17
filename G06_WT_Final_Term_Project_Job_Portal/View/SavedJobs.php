@@ -129,7 +129,7 @@ $saved_jobs = $db->getSavedJobs($conn, $user_id);
                 </a>
                 
                 <a class="btn remove-btn"
-                   href="RemoveSavedJob.php?id=<?php echo $job['id']; ?>">
+                   href="..\Controller\RemoveSavedJob.php?id=<?php echo $job['id']; ?>">
                    Remove
                 </a>
 

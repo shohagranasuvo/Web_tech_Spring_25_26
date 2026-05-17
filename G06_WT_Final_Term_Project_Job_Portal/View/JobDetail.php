@@ -388,7 +388,7 @@ $user = $database->getUserById($connection, $user_id)->fetch_assoc();
         <?php if ($has_applied): ?>
             <div class="applied-badge">✓ Application Submitted</div>
             <p style="margin-top: 10px;">You have already applied for this position.</p>
-            <p><a href="MyApplications.php">View My Applications</a></p>
+            <p><a href="../Controller/MyApplicationsController.php">View My Applications</a></p>
         <?php else: ?>
             <h2 style="margin-bottom: 12px;">Ready to Apply?</h2>
             <p style="margin-bottom: 18px;">Submit your application now!</p>
@@ -456,7 +456,7 @@ $user = $database->getUserById($connection, $user_id)->fetch_assoc();
 </div>
 
 <script>
-    // Bookmark functionality
+
     const bookmarkBtn = document.getElementById('bookmark-btn');
     
     bookmarkBtn.addEventListener('click', function() {
@@ -485,7 +485,7 @@ $user = $database->getUserById($connection, $user_id)->fetch_assoc();
         });
     });
     
-    // Show/hide application form
+   
     const showFormBtn = document.getElementById('show-application-form');
     const applicationForm = document.getElementById('application-form');
     const cancelBtn = document.getElementById('cancel-application');

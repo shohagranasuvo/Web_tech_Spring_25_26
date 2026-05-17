@@ -11,7 +11,7 @@ include "../Model/db.php";
 $database = new db();
 $connection = $database->connection();
 
-// Get filter parameters
+
 $filters = [
     'category_id' => isset($_GET['category_id']) ? $_GET['category_id'] : '',
     'location' => isset($_GET['location']) ? $_GET['location'] : '',
@@ -19,12 +19,12 @@ $filters = [
     'salary_range' => isset($_GET['salary_range']) ? $_GET['salary_range'] : ''
 ];
 
-// Remove empty filters
+
 $filters = array_filter($filters, function($value) {
     return !empty($value);
 });
 
-// Get jobs with filters
+
 $result = $database->getActiveJobs($connection, $filters);
 
 $jobs = [];

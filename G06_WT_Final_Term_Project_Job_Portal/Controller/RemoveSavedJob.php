@@ -18,6 +18,6 @@ if ($job_id > 0) {
     $db->removeSavedJob($conn, $user_id, $job_id);
 }
 
-header("Location: SavedJobs.php");
+header("Location: ..\View\SavedJobs.php");
 exit();
 ?>
