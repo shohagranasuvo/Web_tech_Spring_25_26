@@ -128,7 +128,7 @@ include "../Controller/RegistrationController.php";
 
         <input type="submit" name="submit" value="Register">
     </form>
-    <div class="link-row"><a href="Login.php">Already have an account? Login</a></div>
+    <div class="link-row"><a href="login.php">Already have an account? Login</a></div>
 
 </div>
 </body>

@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = $database->registerUser($connection, $name, $email, $password_hash, $role, $file_path);
 
             if ($result) {
-                Header("Location: ../View/Login.php");
+                Header("Location: ../View/login.php");
                 exit();
             } else {
                 $error = "Registration failed. Please try again.";
