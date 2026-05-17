@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Tracking Dashboard</title>
+    <!-- Tailwind CSS CDN for Professional UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN for Application Funnel -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+
+    <!-- Top Navigation Bar -->
+    <nav class="bg-indigo-600 text-white shadow-lg px-6 py-4 flex justify-between items-center mb-8">
+        <h1 class="text-2xl font-bold tracking-tight">Recruitment Dashboard</h1>
+        <div class="flex space-x-4">
+            <button id="switch-employer-btn" onclick="switchView('employer')" class="bg-white text-indigo-600 px-4 py-2 rounded-lg font-semibold shadow hover:bg-indigo-50 transition">Employer Panel</button>
+            <button id="switch-admin-btn" onclick="switchView('admin')" class="bg-indigo-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-indigo-800 transition">Admin Panel</button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="container mx-auto px-4 max-w-7xl pb-12">
+
+        <!-- ========================================== -->
+        <!-- SECTION 1: EMPLOYER DASHBOARD             -->
+        <!-- ========================================== -->
+        <section id="employer-section" class="space-y-8">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">Review Applications</h2>
+                    <p class="text-sm text-gray-500">Select a job listing to manage applicant submissions and view performance.</p>
+                </div>
+                <!-- Job Dropdown Selection -->
+                <div class="w-full md:w-80">
+                    <label for="job-selector" class="block text-xs font-semibold text-gray-600 uppercase mb-2">Select Your Job Listing</label>
+                    <select id="job-selector" onchange="fetchApplications(this.value)" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 p-2.5">
+                        <option value="">-- Choose a Job --</option>
+                        <!-- Dynamic Options from PHP will go here -->
+                        <option value="1">Software Engineer (Node.js)</option>
+                        <option value="2">UI/UX Designer</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Application Table Container -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="p-6 border-b border-gray-100">
+                    <h3 class="font-bold text-gray-800 text-lg">Applicant List</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-200">
+                            <tr>
+                                <th class="px-6 py-4">Applicant</th>
+                                <th class="px-6 py-4">Headline</th>
+                                <th class="px-6 py-4">Date Applied</th>
+                                <th class="px-6 py-4">Cover Letter</th>
+                                <th class="px-6 py-4">Resume</th>
+                                <th class="px-6 py-4 text-center">Status Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="applications-table-body">
+                            <!-- Placeholder Text before data load -->
+                            <tr>
+                                <td colspan="6" class="px-6 py-10 text-center text-gray-400 italic">Please select a job from the dropdown above to view applicants.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Chart.js Application Funnel -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 max-w-3xl mx-auto">
+                <h3 class="font-bold text-gray-800 text-lg mb-4 text-center">Application Stage Funnel</h3>
+                <div class="relative h-64">
+                    <canvas id="funnelChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- SECTION 2: ADMIN PANEL                    -->
+        <!-- ========================================== -->
+        <section id="admin-section" class="space-y-8 hidden">
+            <!-- Summary Row -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 p-6 rounded-xl shadow-md text-white">
+                    <p class="text-indigo-100 text-sm font-semibold uppercase">Total Jobs Posted</p>
+                    <h4 id="stat-total-jobs" class="text-4xl font-extrabold mt-2">0</h4>
+                </div>
+                <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 p-6 rounded-xl shadow-md text-white">
+                    <p class="text-emerald-100 text-sm font-semibold uppercase">Total Applications</p>
+                    <h4 id="stat-total-apps" class="text-4xl font-extrabold mt-2">0</h4>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 lg:col-span-1 md:col-span-2">
+                    <h5 class="text-gray-700 font-bold mb-3 border-b pb-2 text-sm uppercase">Applications Per Category</h5>
+                    <div class="overflow-y-auto max-h-24 text-xs space-y-2 text-gray-600" id="category-breakdown-list">
+                        <!-- Dynamic Category Rows -->
+                        <div class="flex justify-between"><span>Engineering:</span> <span class="font-bold">0</span></div>
+                        <div class="flex justify-between"><span>Design:</span> <span class="font-bold">0</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Global Job Controller -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="p-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-lg">Global Job Management</h3>
+                        <p class="text-xs text-gray-400">Admin-only view across all employers.</p>
+                    </div>
+                    <!-- Admin Filters -->
+                    <div class="flex gap-3 w-full sm:w-auto">
+                        <select id="admin-filter-category" onchange="fetchAdminJobs()" class="bg-gray-50 border border-gray-300 text-xs rounded-lg p-2">
+                            <option value="">All Categories</option>
+                            <option value="1">Engineering</option>
+                            <option value="2">Design</option>
+                        </select>
+                        <select id="admin-filter-status" onchange="fetchAdminJobs()" class="bg-gray-50 border border-gray-300 text-xs rounded-lg p-2">
+                            <option value="">All Statuses</option>
+                            <option value="active">Active</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-200">
+                            <tr>
+                                <th class="px-6 py-4">Job Title</th>
+                                <th class="px-6 py-4">Employer ID</th>
+                                <th class="px-6 py-4">Category</th>
+                                <th class="px-6 py-4">Status</th>
+                                <th class="px-6 py-4 text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-jobs-table-body">
+                            <!-- Dynamic Content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT & AJAX INTEGRATION              -->
+    <!-- ========================================== -->
+    <script>
+        // Chart Instance Variable
+        let funnelChart = null;
+
+        // 1. Panel Switching Logic (Employer / Admin UI View)
+        function switchView(view) {
+            const empSec = document.getElementById('employer-section');
+            const admSec = document.getElementById('admin-section');
+            const empBtn = document.getElementById('switch-employer-btn');
+            const admBtn = document.getElementById('switch-admin-btn');
+
+            if (view === 'employer') {
+                empSec.classList.remove('hidden');
+                admSec.classList.add('hidden');
+                empBtn.className = "bg-white text-indigo-600 px-4 py-2 rounded-lg font-semibold shadow hover:bg-indigo-50 transition";
+                admBtn.className = "bg-indigo-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-indigo-800 transition";
+            } else {
+                empSec.classList.add('hidden');
+                admSec.classList.remove('hidden');
+                admBtn.className = "bg-white text-indigo-600 px-4 py-2 rounded-lg font-semibold shadow hover:bg-indigo-50 transition";
+                empBtn.className = "bg-indigo-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-indigo-800 transition";
+                
+                // Initialize Admin Panel Data
+                fetchAdminSummary();
+                fetchAdminJobs();
+            }
+        }
+
+        // 2. Fetch Applications for Selected Job (AJAX)
+        function fetchApplications(jobId) {
+            if (!jobId) {
+                document.getElementById('applications-table-body').innerHTML = `
+                    <tr><td colspan="6" class="px-6 py-10 text-center text-gray-400 italic">Please select a job from the dropdown above to view applicants.</td></tr>`;
+                destroyChart();
+                return;
+            }
+
+            // PHP MVC API Endpoint: GET /api/jobs/{id}/applications (বা আপনার রাউট অনুযায়ী পরিবর্তন করুন)
+            fetch(`../api/jobs/${jobId}/applications`)
+                .then(res => res.json())
+                .then(data => {
+                    // data ফরম্যাট হতে হবে: { applications: [...], statusCounts: { Submitted: X, Reviewed: Y, ... } }
+                    renderApplicationsTable(data.applications);
+                    renderFunnelChart(data.statusCounts);
+                })
+                .catch(err => {
+                    console.error("Error loading data:", err);
+                    alert("Failed to load applications. Make sure your server API is working.");
+                });
+        }
+
+        // 3. Render Employer Table
+        function renderApplicationsTable(apps) {
+            const tbody = document.getElementById('applications-table-body');
+            if (!apps || apps.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-8 text-center text-gray-400">No applications found for this job position.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = apps.map(app => {
+                // Dynamic Badge styling based on current status
+                let badgeColor = "bg-gray-100 text-gray-800";
+                if(app.status === 'Shortlisted') badgeColor = "bg-green-100 text-green-800";
+                if(app.status === 'Reviewed') badgeColor = "bg-blue-100 text-blue-800";
+                if(app.status === 'Rejected') badgeColor = "bg-red-100 text-red-800";
+
+                return `
+                    <tr class="bg-white border-b hover:bg-gray-50 transition">
+                        <td class="px-6 py-4 font-semibold text-gray-900">${app.seeker_name}</td>
+                        <td class="px-6 py-4 text-xs">${app.headline || 'N/A'}</td>
+                        <td class="px-6 py-4 text-xs">${new Date(app.created_at).toLocaleDateString()}</td>
+                        <td class="px-6 py-4"><span class="block truncate max-w-xs text-xs cursor-pointer" title="${app.cover_letter}">${app.cover_letter}</span></td>
+                        <td class="px-6 py-4">
+                            <a href="../public/uploads/${app.resume_path}" download class="inline-flex items-center text-xs text-indigo-600 hover:underline font-semibold">
+                                Download PDF
+                            </a>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <select onchange="updateApplicationStatus(${app.id}, this.value, ${app.job_id})" class="${badgeColor} text-xs rounded-full font-bold px-3 py-1.5 border-0 focus:ring-2 focus:ring-indigo-400 cursor-pointer">
+                                <option value="Submitted" ${app.status === 'Submitted' ? 'selected' : ''}>Submitted</option>
+                                <option value="Reviewed" ${app.status === 'Reviewed' ? 'selected' : ''}>Reviewed</option>
+                                <option value="Shortlisted" ${app.status === 'Shortlisted' ? 'selected' : ''}>Shortlisted</option>
+                                <option value="Rejected" ${app.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
+                            </select>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // 4. Update Application Status Dynamically (AJAX PUT)
+        function updateApplicationStatus(appId, newStatus, jobId) {
+            // PHP MVC API Endpoint: PUT /api/applications/{id}
+            fetch(`../api/applications/${appId}`, {
+                method: 'PUT', // বা আপনার Framework এর রুলস অনুযায়ী POST মেথড এবং _method: 'PUT' পাঠাতে পারেন।
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: newStatus })
+            })
+            .then(res => res.json())
+            .then(response => {
+                if(response.success) {
+                    // সফল হলে রিলোড ছাড়াই ফানেল চার্ট এবং ডাটা পুনরায় আপডেট করবে
+                    fetchApplications(jobId);
+                } else {
+                    alert("Failed to update status: " + response.message);
+                }
+            })
+            .catch(err => console.error("Error updating status:", err));
+        }
+
+        // 5. Render Horizontal Bar Chart via Chart.js
+        function renderFunnelChart(counts) {
+            const ctx = document.getElementById('funnelChart').getContext('2d');
+            
+            // পূর্বের চার্টটি ডিলিট করা হচ্ছে যাতে নতুন ডেটা ওভারল্যাপ না হয়
+            destroyChart();
+
+            const dataValues = [
+                counts?.Submitted || 0,
+                counts?.Reviewed || 0,
+                counts?.Shortlisted || 0,
+                counts?.Rejected || 0
+            ];
+
+            funnelChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Submitted', 'Reviewed', 'Shortlisted', 'Rejected'],
+                    datasets: [{
+                        label: 'Applications Count',
+                        data: dataValues,
+                        backgroundColor: [
+                            'rgba(156, 163, 175, 0.7)', // Gray
+                            'rgba(59, 130, 246, 0.7)',  // Blue
+                            'rgba(16, 185, 129, 0.7)',  // Green
+                            'rgba(239, 68, 68, 0.7)'    // Red
+                        ],
+                        borderColor: [
+                            'rgb(156, 163, 175)',
+                            'rgb(59, 130, 246)',
+                            'rgb(16, 185, 129)',
+                            'rgb(239, 68, 68)'
+                        ],
+                        borderWidth: 1,
+                        barThickness: 25
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // এটিই বার চার্টকে Horizontal বা ফানেল রূপ দেয়
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } }
+                }
+            });
+        }
+
+        function destroyChart() {
+            if (funnelChart) {
+                funnelChart.destroy();
+            }
+        }
+
+        // 6. Admin Panel - Fetch Global Analytics HTML Table (AJAX)
+        function fetchAdminSummary() {
+            fetch('../api/admin/summary')
+                .then(res => res.json())
+                .then(data => {
+                    // Expected response structure: { totalJobs: X, totalApplications: Y, categoryBreakdown: [{name: 'Eng', count: 2}, ...] }
+                    document.getElementById('stat-total-jobs').innerText = data.totalJobs || 0;
+                    document.getElementById('stat-total-apps').innerText = data.totalApplications || 0;
+                    
+                    const listHTML = data.categoryBreakdown.map(cat => `
+                        <div class="flex justify-between border-b pb-1">
+                            <span class="font-medium text-gray-700">${cat.name}:</span>
+                            <span class="font-bold text-indigo-600">${cat.count} apps</span>
+                        </div>
+                    `).join('');
+                    document.getElementById('category-breakdown-list').innerHTML = listHTML || '<p class="text-gray-400">No category data</p>';
+                });
+        }
+
+        // 7. Admin Panel - Fetch and Filter All Jobs (AJAX)
+        function fetchAdminJobs() {
+            const categoryId = document.getElementById('admin-filter-category').value;
+            const status = document.getElementById('admin-filter-status').value;
+
+            fetch(`../api/admin/jobs?category_id=${categoryId}&status=${status}`)
+                .then(res => res.json())
+                .then(jobs => {
+                    const tbody = document.getElementById('admin-jobs-table-body');
+                    if (!jobs || jobs.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-center text-gray-400">No jobs match the active filters.</td></tr>`;
+                        return;
+                    }
+
+                    tbody.innerHTML = jobs.map(job => `
+                        <tr class="bg-white border-b hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-900">${job.title}</td>
+                            <td class="px-6 py-4 text-xs text-gray-500">Employer ID: ${job.employer_id}</td>
+                            <td class="px-6 py-4 text-xs">${job.category_name}</td>
+                            <td class="px-6 py-4">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full ${job.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                                    ${job.status}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                ${job.status === 'active' ? `
+                                    <button onclick="softDeleteJob(${job.id})" class="text-xs bg-red-50 hover:bg-red-100 text-red-600 px-3 py-1.5 rounded-lg font-medium border border-red-200 transition">
+                                        Soft Delete (Close)
+                                    </button>
+                                ` : `<span class="text-xs text-gray-400 italic">No Actions</span>`}
+                            </td>
+                        </tr>
+                    `).join('');
+                });
+        }
+
+        // 8. Admin Soft Delete Job Action (AJAX POST/PUT)
+        function softDeleteJob(jobId) {
+            if(!confirm("Are you sure you want to soft-delete (close) this job listing? It will be hidden from the job board.")) return;
+
+            fetch(`../api/admin/jobs/${jobId}/soft-delete`, {
+                method: 'POST'
+            })
+            .then(res => res.json())
+            .then(response => {
+                if(response.success) {
+                    // ইন্টারফেস রিলোড না করে টেবিল এবং অ্যানালিটিক্স রিফ্রেশ হবে
+                    fetchAdminSummary();
+                    fetchAdminJobs();
+                } else {
+                    alert("Action failed: " + response.message);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
