@@ -369,11 +369,11 @@ class db {
 
 
     
-    function updateJob($connection, $job_id, $category_id, $title, $description, $requirements, $salary_range, $location, $job_type, $deadline) {
+    function updateJob($connection, $job_id, $category_id, $title, $description, $requirements, $salary_range, $location, $job_type, $deadline, $employer_id) {
         $sql = "UPDATE jobs SET category_id=?, title=?, description=?, requirements=?, salary_range=?, location=?, job_type=?, deadline=? 
-                WHERE id=?";
+                WHERE id=? AND employer_id=?";
         $stmt = $connection->prepare($sql);
-        $stmt->bind_param("isssssssi", $category_id, $title, $description, $requirements, $salary_range, $location, $job_type, $deadline, $job_id);
+        $stmt->bind_param("isssssssii", $category_id, $title, $description, $requirements, $salary_range, $location, $job_type, $deadline, $job_id, $employer_id);
         return $stmt->execute();
     }
 
@@ -391,10 +391,10 @@ class db {
         return $stmt->get_result();
     }
 
-    function updateJobStatus($connection, $job_id, $status) {
+    function updateJobStatus($connection, $job_id, $status, $employer_id) {
         $sql = "UPDATE jobs SET status = ? WHERE id = ?";
         $stmt = $connection->prepare($sql);
-        $stmt->bind_param("si", $status, $job_id);
+        $stmt->bind_param("sii", $status, $job_id, $employer_id);
         return $stmt->execute();
     }
     function deleteJob($connection, $job_id, $employer_id) {
