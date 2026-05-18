@@ -1,11 +1,5 @@
 <?php
-// views/dashboard/admin_panel.php
-// Variables from DashboardController::adminPanel():
-//   $jobs        – all jobs (with optional filter applied)
-//   $categories  – all categories for filter dropdown
-//   $summary     – ['total_jobs', 'total_applications', 'by_category']
-//   $catFilter   – currently selected category_id (int|null)
-//   $statusFilter – currently selected status string|null
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
