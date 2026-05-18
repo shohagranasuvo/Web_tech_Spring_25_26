@@ -124,8 +124,7 @@ class db {
                 INNER JOIN employer_profiles e ON j.employer_id = e.id
                 INNER JOIN categories c ON j.category_id = c.id
                 WHERE j.status = 'active' AND j.deadline >= CURDATE()";
-        
-        // Apply filters
+      
         if (!empty($filters['category_id'])) {
             $sql .= " AND j.category_id = ?";
         }
@@ -163,7 +162,7 @@ class db {
             $types .= "s";
             $params[] = "%" . $filters['salary_range'] . "%";
         }
-        
+    
         if (!empty($params)) {
             $stmt->bind_param($types, ...$params);
         }

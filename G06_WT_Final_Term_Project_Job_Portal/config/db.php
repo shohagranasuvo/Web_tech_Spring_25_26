@@ -27,7 +27,7 @@ class db {
         return $result;
     }
 
-    // ==================== JOB SEARCH & FILTERING ====================
+    
    
     
     function getActiveJobs($connection, $filters = []) {
@@ -38,7 +38,7 @@ class db {
                 INNER JOIN users u ON e.user_id = u.id
                 WHERE j.status = 'active' AND j.deadline >= CURDATE()";
         
-        // Apply filters
+      
         if (!empty($filters['category_id'])) {
             $category_id = $connection->real_escape_string($filters['category_id']);
             $sql .= " AND j.category_id = '" . $category_id . "'";

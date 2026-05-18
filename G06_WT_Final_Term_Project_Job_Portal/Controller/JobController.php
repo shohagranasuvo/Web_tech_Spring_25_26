@@ -25,6 +25,8 @@ if (isset($_POST["create_job"])) {
     $deadline     = $_POST["deadline"] ?? "";
 
     if (empty($title) || empty($description) || $category_id <= 0 || empty($location) || empty($job_type) || empty($deadline)) {
+        
+    $result = $database->createJob($connection, $employer_id, $category_id, $title, $description, $requirements, $salary_range, $location, $job_type, $deadline);
         header("Location: ../View/job.php?error=empty");
         exit();
     }
@@ -68,9 +70,7 @@ if (isset($_POST["update_job"])) {
     exit();
 }
 
-// ==========================================
-// DELETE JOB
-// ==========================================
+
 if (isset($_GET["delete_job_id"])) {
     $job_id = intval($_GET["delete_job_id"]);
     $employer_id = $_SESSION["user_id"];
