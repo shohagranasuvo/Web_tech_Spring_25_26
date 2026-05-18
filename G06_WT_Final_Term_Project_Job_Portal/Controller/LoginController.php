@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     Header("Location: ../View/JobBoard.php");
                 }
             } else {
-                Header("Location: ../View/AdminPanel.php");
+                Header("Location: ../View/AdminCategory.php");
             }
             exit();
 

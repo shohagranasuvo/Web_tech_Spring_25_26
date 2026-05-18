@@ -315,7 +315,94 @@ class db {
         $stmt->execute();
         return $stmt->get_result();
     }
+
+     // TASK 2 
+
+
+
+
+    
+    function addCategory($connection, $name) {
+        $sql = "INSERT INTO categories (name) VALUES (?)";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("s", $name);
+        return $stmt->execute();
+    }
+
+    function updateCategory($connection, $id, $name) {
+        $sql = "UPDATE categories SET name = ? WHERE id = ?";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("si", $name, $id);
+        return $stmt->execute();
+    }
+
+    function checkCategoryExists($connection, $id) {
+        $sql = "SELECT id FROM categories WHERE id = ? LIMIT 1";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result()->num_rows > 0;
+    }
+    
+    function checkJobsInCategory($connection, $category_id) {
+        $sql = "SELECT id FROM jobs WHERE category_id = ? LIMIT 1";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("i", $category_id);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    function deleteCategory($connection, $id) {
+        $sql = "DELETE FROM categories WHERE id = ?";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("i", $id);
+        return $stmt->execute();
+    }
+     
+    function createJob($connection, $employer_id, $category_id, $title, $description, $requirements, $salary_range, $location, $job_type, $deadline) {
+        $sql = "INSERT INTO jobs (employer_id, category_id, title, description, requirements, salary_range, location, job_type, deadline, status) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'active')";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("iisssssss", $employer_id, $category_id, $title, $description, $requirements, $salary_range, $location, $job_type, $deadline);
+        return $stmt->execute();
+    }
+
+
+    
+    function updateJob($connection, $job_id, $category_id, $title, $description, $requirements, $salary_range, $location, $job_type, $deadline) {
+        $sql = "UPDATE jobs SET category_id=?, title=?, description=?, requirements=?, salary_range=?, location=?, job_type=?, deadline=? 
+                WHERE id=?";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("isssssssi", $category_id, $title, $description, $requirements, $salary_range, $location, $job_type, $deadline, $job_id);
+        return $stmt->execute();
+    }
+
+    function getEmployerJobsWithApplicationCount($connection, $employer_id) {
+        $sql = "SELECT j.*, c.name AS category_name, COUNT(a.id) AS application_count 
+                FROM jobs j
+                LEFT JOIN categories c ON j.category_id = c.id
+                LEFT JOIN applications a ON j.id = a.job_id
+                WHERE j.employer_id = ?
+                GROUP BY j.id
+                ORDER BY j.created_at DESC";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("i", $employer_id);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    function updateJobStatus($connection, $job_id, $status) {
+        $sql = "UPDATE jobs SET status = ? WHERE id = ?";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("si", $status, $job_id);
+        return $stmt->execute();
+    }
+    function deleteJob($connection, $job_id, $employer_id) {
+        $sql = "DELETE FROM jobs WHERE id = ? AND employer_id = ?";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("ii", $job_id, $employer_id);
+        return $stmt->execute();
+    }
+
 }
-
-
 ?>
