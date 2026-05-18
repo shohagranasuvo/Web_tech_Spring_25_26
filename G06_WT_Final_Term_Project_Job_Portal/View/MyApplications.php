@@ -44,7 +44,7 @@ th {
     background: #f8f9fa;
 }
 
-/* Status badges */
+
 .badge {
     padding: 6px 12px;
     border-radius: 20px;

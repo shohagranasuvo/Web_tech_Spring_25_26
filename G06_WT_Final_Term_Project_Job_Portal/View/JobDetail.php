@@ -29,10 +29,10 @@ if (!$job_result || $job_result->num_rows === 0) {
 
 $job = $job_result->fetch_assoc();
 
-// Check if already applied
+
 $has_applied = $database->hasApplied($connection, $user_id, $job_id);
 
-// Check if saved
+
 $is_saved = $database->isSavedJob($connection, $user_id, $job_id);
 
 
